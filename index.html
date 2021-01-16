@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="./assets/images/favicon.jpg"/>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css" 
+    />
+    <title>Weather Dashboard</title>
+</head>
+<body>
+        <!-- Header begins -->
+        <header class="jumbotron bg-dark text-white text-center">
+            <h1 class="display-3">Weather Dashboard</h1>
+        </header>
+          
+        <!-- Header ends -->
+
+        <!-- Container for body of page -->
+      
+        <div class="container">
+
+            <!-- City search section begins -->
+
+            <div class="row">
+                <div class="col-4 bg-light">
+                    <p class="search-header my-1">Search for a city</p>
+                    <div class="input-group mb-3">
+                        <input id="city-input" type="text" class="form-control" placeholder="Enter city name" aria-label="Enter city name">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary material-icons" type="submit" id="search-button">
+                                search
+                            </button>
+                        </div>
+                    </div>
+                    <form id="history"></form>
+                </div>
+
+
+                <!-- City search section ends -->
+                        
+            <!-- Current selected city section begins -->
+
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12 border border-secondary rounded">
+                            <div class="row">
+                                <div class="col-12">
+                                    <p id="city-name" class="city-name align-middle"></p>
+                                    <img id="current-weather" src="" alt="current weather">
+                                </div>
+                            </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <p id="temperature"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <p id="humidity"></p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <p id="wind-speed"></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex">
+                        <p id="UV-index"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <!-- Selected city section ends -->
+
+        <!-- 5 day forecast section begins -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>5-Day Forecast</h3>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
+                        <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
+                        <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
+                        <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
+                        <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+        <!-- Footer begins -->
+      
+          <footer>
+
+          </footer>
+      
+        <!-- Footer ends -->
+    
+    
+        <!-- Script section begins -->
+      
+          <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+          <script src="./assets/js/script.js"></script>
+      
+        <!-- Script section ends -->
+    
+</body>
+</html>
