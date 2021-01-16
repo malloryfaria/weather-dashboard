@@ -26,7 +26,7 @@ THEN I am again presented with current and future conditions for that city
 Live
 
 ## Deployed application
-https://malloryfaria.github.io/work-day-scheduler/
+https://malloryfaria.github.io/weather-dashboard/
  
 ## Screenshots
 
