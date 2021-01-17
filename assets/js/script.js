@@ -98,15 +98,16 @@ $(document).ready(function () {
             getWeather(searchTerm);
             searchHistory.push(searchTerm);
             localStorage.setItem("search",JSON.stringify(searchHistory));
-            renderSearchHistory();
+            loadSearchHistory();
 
           } else {
             alert("Please enter a city name");
           }
+          $("#city-input").val("");  
     })
 
     //  Save each city user searches for and display it under the search form
-    function renderSearchHistory() {
+    function loadSearchHistory() {
         historyEl.innerHTML = "";
         
         for (var i=0; i<searchHistory.length; i++) {
@@ -134,7 +135,7 @@ $(document).ready(function () {
     $("#clear-button").on("click",function() {
         searchHistory = [];
         historyItemId = 0;
-        renderSearchHistory();
+        loadSearchHistory();
         $("#today").empty();
         $("#current-weather").empty();
         localStorage.clear();
@@ -143,7 +144,7 @@ $(document).ready(function () {
 
 
     //  When page loads, automatically get today's conditions and 5-day forecast for the last city the user searched for
-    renderSearchHistory();
+    loadSearchHistory();
     if (searchHistory.length > 0) {
         getWeather(searchHistory[searchHistory.length - 1]);        
     }
