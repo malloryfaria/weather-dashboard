@@ -1,15 +1,15 @@
 $(document).ready(function () {
 
     // Declared variables
-    var inputEl = document.getElementById("city-input");
-    var searchEl = document.getElementById("search-button");
-    var nameEl = document.getElementById("city-name");
-    var currentWeatherEl = document.getElementById("current-weather");
-    var currentTempEl = document.getElementById("temperature");
-    var currentHumidityEl = document.getElementById("humidity");
-    var currentWindEl = document.getElementById("wind-speed");
-    var currentUVEl = document.getElementById("uv-index");
-    var historyEl = document.getElementById("history");
+    var input = document.getElementById("city-input");
+    var search = document.getElementById("search-button");
+    var name = document.getElementById("city-name");
+    var currentWeather = document.getElementById("current-weather");
+    var currentTemp = document.getElementById("temperature");
+    var currentHumidity = document.getElementById("humidity");
+    var currentWind = document.getElementById("wind-speed");
+    var currentUV = document.getElementById("uv-index");
+    var historyForm = document.getElementById("history");
     var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
     console.log(searchHistory);
     var APIKey = "a0cbd2da9176d7aecdf42af83bd9df06";
@@ -25,19 +25,23 @@ $(document).ready(function () {
                     //  Use response to display today's weather conditions & use moment.js to get & format dates
                                 var currentDate = moment().format("MMM Do, YYYY");
                                 console.log(currentDate);
-                                nameEl.innerHTML = response.data.name + " " + "(" + currentDate +")";
+                                name.innerHTML = response.data.name + " " + "(" + currentDate +")";
                                 var weatherPic = response.data.weather[0].icon;
-                                currentWeatherEl.setAttribute("src","https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
-                                currentWeatherEl.setAttribute("alt",response.data.weather[0].description);
-                                currentTempEl.innerHTML = "Temperature: " + response.data.main.temp + " &#8451";
-                                currentHumidityEl.innerHTML = "Humidity: " + response.data.main.humidity + "%";
-                                currentWindEl.innerHTML = "Wind Speed: " + response.data.wind.speed + " km/h";
+                                currentWeather.setAttribute("src","https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
+                                currentWeather.setAttribute("alt",response.data.weather[0].description);
+                                currentTemp.innerHTML = "Temperature: " + response.data.main.temp + " &#8451";
+                                currentHumidity.innerHTML = "Humidity: " + response.data.main.humidity + "%";
+                                currentWind.innerHTML = "Wind Speed: " + response.data.wind.speed + " km/h";
                             var lat = response.data.coord.lat;
                             var lon = response.data.coord.lon;
+
+                            // TODO : this UV Index is being deprecated April 2021 - should be updated to One Call API soon see: https://openweathermap.org/api/one-call-api - Mallory
                             var UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&units=metric&appid=" + APIKey + "&cnt=1";
                             axios.get(UVQueryURL)
                             .then(function(response){
                                 var UVIndex = document.createElement("span");   
+
+                                // sets the colour of the UV-index background depending on the value (green, yellow or red)
                                 if(response.data[0].value < 3) {
                                     UVIndex.setAttribute("class","badge badge-success");
                                 } 
@@ -48,8 +52,8 @@ $(document).ready(function () {
                                     UVIndex.setAttribute("class","badge badge-danger");
                                 }
                                 UVIndex.innerHTML = response.data[0].value;
-                                currentUVEl.innerHTML = "UV Index: ";
-                                currentUVEl.append(UVIndex);
+                                currentUV.innerHTML = "UV Index: ";
+                                currentUV.append(UVIndex);
                             });
                     //  Using saved city name, execute a 5-day forecast get request from open weather map api
                             var cityID = response.data.id;
@@ -81,26 +85,32 @@ $(document).ready(function () {
                                     }
                                 })
 
-        }).catch(function (error) {
-            // handle error
+        })
+        // Error handling to alert user if they input an invalid city name
+
+        .catch(function (error) {
             console.log(error);
             alert("Please enter a valid city name");
-            return
           });  
     }
 
 
     // Listener for the click on the search button
 
-    $(searchEl).on("click",function() {
-        var searchTerm = inputEl.value;
+    $(search).on("click",function() {
+        var searchTerm = input.value;
+
+        // ensure user input a city name
+
         if (searchTerm) {
             getWeather(searchTerm);
             searchHistory.push(searchTerm);
             localStorage.setItem("search",JSON.stringify(searchHistory));
             loadSearchHistory();
 
-          } else {
+          } 
+          // if user didn't input a value, alert them
+          else {
             alert("Please enter a city name");
           }
           $("#city-input").val("");  
@@ -108,7 +118,7 @@ $(document).ready(function () {
 
     //  Save each city user searches for and display it under the search form
     function loadSearchHistory() {
-        historyEl.innerHTML = "";
+        historyForm.innerHTML = "";
         
         for (var i=0; i<searchHistory.length; i++) {
             var historyItem = document.createElement("input");
@@ -125,7 +135,7 @@ $(document).ready(function () {
                 getWeather(this.value);
               })
 
-            historyEl.append(historyItem);
+            historyForm.append(historyItem);
         }    
 
         }
@@ -134,7 +144,6 @@ $(document).ready(function () {
 
     $("#clear-button").on("click",function() {
         searchHistory = [];
-        historyItemId = 0;
         loadSearchHistory();
         $("#today").empty();
         $("#current-weather").empty();
