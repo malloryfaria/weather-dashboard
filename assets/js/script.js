@@ -80,7 +80,13 @@ $(document).ready(function () {
                                     forecastEls[i].append(forecastHumidityEl);
                                     }
                                 })
-        });  
+
+        }).catch(function (error) {
+            // handle error
+            console.log(error);
+            alert("Please enter a valid city name");
+            return
+          });  
     }
 
 
