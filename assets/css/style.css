@@ -3,3 +3,7 @@ body {
     font-family: 'Delius', sans-serif;
 
 }
+
+.text-responsive {
+    font-size: calc(50% + 1vw + 1vh);
+  }
