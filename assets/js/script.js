@@ -100,7 +100,7 @@ $(document).ready(function () {
     $(search).on("click",function() {
         var searchTerm = input.value;
 
-        // ensure user input a city name
+        // Ensure user input a city name
 
         if (searchTerm) {
             getWeather(searchTerm);
@@ -109,7 +109,7 @@ $(document).ready(function () {
             loadSearchHistory();
 
           } 
-          // if user didn't input a value, alert them
+          // If user didn't input a value, alert them
           else {
             alert("Please enter a city name");
           }
